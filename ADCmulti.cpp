@@ -87,6 +87,11 @@ void ADCmulti::check()
 	return;
 }
 
+int ADCmulti::read() //__attribute__((always_inline))
+{  
+	return *pVar_;
+}
+
 int ADCmulti::read(int pin) //__attribute__((always_inline))
 {  
 	int Value;

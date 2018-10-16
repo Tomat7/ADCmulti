@@ -20,6 +20,7 @@ public:
 	void init();
 	void check();
 	int read(int pin);
+	int read();
 	
 	//=== Прерываниe
 	static void GetADC_int() __attribute__((always_inline));
@@ -30,7 +31,6 @@ protected:
 	byte nSensor_;
 	int *pPin_;
 	int *pVar_;
-	
 	int i;
 
 };
