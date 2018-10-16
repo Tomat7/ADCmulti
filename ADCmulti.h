@@ -11,29 +11,25 @@
 * D3 - детектор нуля
 *
 */
-#ifndef AMread_h
-#define AMread_h
+#ifndef ADCmulti_h
+#define ADCmulti_h
 
 #include "Arduino.h"
 
-#define LIBVERSION "AMread_v20181015 on pin: "
+#define LIBVERSION "ADCmulti_v20181015 on pin: "
 
-class AMread
+class ADCmulti
 {
 public:
-	//AMread();
-	AMread(int pin1);
-	AMread(int pin1, int pin2);
-	AMread(int pin1, int pin2, int pin3);
-	AMread(int pin1, int pin2, int pin3, int pin4);
+	//ADCmulti();
+	ADCmulti(int pin1);
+	ADCmulti(int pin1, int pin2);
+	ADCmulti(int pin1, int pin2, int pin3);
+	ADCmulti(int pin1, int pin2, int pin3, int pin4);
 	
 	void init();
 	void check();
 	int read(int pin);
-	//int Value;
-
-	//float Press_kPa;			// раскоментировать если нужны килоПаскали с плавающей точкой
-	//uint16_t ADCperiod;		// DEBUG!! убрать
 	
 	//=== Прерываниe
 	static void GetADC_int() __attribute__((always_inline));
@@ -44,7 +40,7 @@ protected:
 	byte nSensor_;
 	int *pPin_;
 	int *pVar_;
-	int **ppVal_;
+	
 	int pin_;
 	int val_;
 	int i = 0;

@@ -6,7 +6,7 @@
 */
 
 #include "Arduino.h"
-#include "AMread.h"
+#include "ADCmulti.h"
 // defines for setting and clearing register bits
 
 #ifndef cbi
@@ -16,15 +16,15 @@
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
 
-volatile unsigned int AMread::_cntr;
-volatile unsigned long AMread::_Summ;
+volatile unsigned int ADCmulti::_cntr;
+volatile unsigned long ADCmulti::_Summ;
 
 //================= Обработка прерывания АЦП для расчета среднеквадратичного тока
 ISR(ADC_vect) {
-	AMread::GetADC_int();
+	ADCmulti::GetADC_int();
 }
 
-AMread::AMread(int pin1)
+ADCmulti::ADCmulti(int pin1)
 {
 	nSensor_ = 1;
 	pPin_ = (int*) malloc(nSensor_ * sizeof(int));
@@ -32,7 +32,7 @@ AMread::AMread(int pin1)
 	*pPin_ = pin1 - 14;
 }
 
-AMread::AMread(int pin1, int pin2)
+ADCmulti::ADCmulti(int pin1, int pin2)
 {
 	nSensor_ = 2;
 	pPin_ = (int*) malloc(nSensor_ * sizeof(int));
@@ -41,7 +41,7 @@ AMread::AMread(int pin1, int pin2)
 	*(pPin_+1) = pin2 - 14;
 }
 
-AMread::AMread(int pin1, int pin2, int pin3)
+ADCmulti::ADCmulti(int pin1, int pin2, int pin3)
 {
 	nSensor_ = 3;
 	pPin_ = (int*) malloc(nSensor_ * sizeof(int));
@@ -51,7 +51,7 @@ AMread::AMread(int pin1, int pin2, int pin3)
 	*(pPin_+2) = pin3 - 14;
 }
 
-AMread::AMread(int pin1, int pin2, int pin3, int pin4)
+ADCmulti::ADCmulti(int pin1, int pin2, int pin3, int pin4)
 {
 	nSensor_ = 4;
 	pPin_ = (int*) malloc(nSensor_ * sizeof(int));
@@ -62,7 +62,7 @@ AMread::AMread(int pin1, int pin2, int pin3, int pin4)
 	*(pPin_+3) = pin4 - 14;
 }
 
-void AMread::init() //__attribute__((always_inline))
+void ADCmulti::init() //__attribute__((always_inline))
 {  
 	// настойка АЦП
 	//ADMUX = (0 << REFS1) | (1 << REFS0) | (0 << MUX2) | (0 << MUX1) | (1 << MUX0); // начинаем
@@ -75,28 +75,26 @@ void AMread::init() //__attribute__((always_inline))
 	_Summ=0;		// ??
 }
 
-void AMread::check()
+void ADCmulti::check()
 {	
 
 	if (_cntr == 1024)
 	{	
 		_Summ >>= 10;
-		//ppVal_ = *(pVar_+i);
-		//*ppVal_ = int(sqrt(_Summ));
+
 		*(pVar_+i) = int(sqrt(_Summ));
 		i++;
 		if (i == nSensor_) i = 0;
 		ADMUX = _BV(REFS0) | *(pPin_+i);
 	
-		//cli();			// так в умных интернетах пишут, возможно это лишнее - ** и без этого работает **
-		_Summ = 0;
+		_Summ = 0;			// sei() and cli() ??
 		_cntr = 1050;		// сбросим счетчик в "кодовое" значение 
-		//sei();
+
 	}
 	return;
 }
 
-int AMread::read(int pin) //__attribute__((always_inline))
+int ADCmulti::read(int pin) //__attribute__((always_inline))
 {  
 	int Value;
 	for (int n=0; n<nSensor_; n++)
@@ -106,7 +104,7 @@ int AMread::read(int pin) //__attribute__((always_inline))
 	return Value;
 }
 
-void AMread::GetADC_int() //__attribute__((always_inline))
+void ADCmulti::GetADC_int() //__attribute__((always_inline))
 {
 	unsigned long adcData = 0; //мгновенные значения 
 	byte An_pin = ADCL;
