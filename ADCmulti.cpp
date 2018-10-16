@@ -74,19 +74,15 @@ void ADCmulti::init() //__attribute__((always_inline))
 
 void ADCmulti::check()
 {	
-
 	if (_cntr == 1024)
 	{	
 		_Summ >>= 10;
-
 		*(pVar_+i) = int(sqrt(_Summ));
 		i++;
 		if (i == nSensor_) i = 0;
 		ADMUX = _BV(REFS0) | *(pPin_+i);
-	
 		_Summ = 0;			// sei() and cli() ??
 		_cntr = 1050;		// сбросим счетчик в "кодовое" значение 
-
 	}
 	return;
 }

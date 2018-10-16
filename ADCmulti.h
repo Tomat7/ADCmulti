@@ -15,7 +15,7 @@ public:
 	ADCmulti(int pin1);
 	ADCmulti(int pin1, int pin2);
 	ADCmulti(int pin1, int pin2, int pin3);
-	//ADCmulti(int pin1, int pin2, int pin3, int pin4);
+	ADCmulti(int pin1, int pin2, int pin3, int pin4);
 	
 	void init();
 	void check();
