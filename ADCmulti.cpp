@@ -47,7 +47,7 @@ ADCmulti::ADCmulti(int pin1, int pin2, int pin3)
 	*(pPin_+1) = pin2 - 14;
 	*(pPin_+2) = pin3 - 14;
 }
-/*
+
 ADCmulti::ADCmulti(int pin1, int pin2, int pin3, int pin4)
 {
 	nSensor_ = 4;
@@ -58,7 +58,7 @@ ADCmulti::ADCmulti(int pin1, int pin2, int pin3, int pin4)
 	*(pPin_+2) = pin3 - 14;
 	*(pPin_+3) = pin4 - 14;
 }
-*/
+
 void ADCmulti::init() //__attribute__((always_inline))
 {  
 	// настойка АЦП
