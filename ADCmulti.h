@@ -16,7 +16,7 @@
 
 #include "Arduino.h"
 
-#define LIBVERSION "ADCmulti_v20181015 on pin: "
+#define LIBVERSION "ADCmulti_v20181016 #pin: "
 
 class ADCmulti
 {
@@ -25,7 +25,7 @@ public:
 	ADCmulti(int pin1);
 	ADCmulti(int pin1, int pin2);
 	ADCmulti(int pin1, int pin2, int pin3);
-	ADCmulti(int pin1, int pin2, int pin3, int pin4);
+	//ADCmulti(int pin1, int pin2, int pin3, int pin4);
 	
 	void init();
 	void check();
@@ -41,11 +41,8 @@ protected:
 	int *pPin_;
 	int *pVar_;
 	
-	int pin_;
-	int val_;
-	int i = 0;
+	int i;
 
-	//unsigned long _ADCmillis;			// DEBUG!! убрать
 };
 
 #endif
