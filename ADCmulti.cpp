@@ -76,9 +76,9 @@ void ADCmulti::check()
 {	
 	if (_cntr == 1024)
 	{	
-		_Summ >>= 10;
-		*(pVar_+i) = int(sqrt(_Summ));	// среднеквадратичное
-		//*(pVar_+i) = _Summ >> 10;		// среднеарифметическое
+		//_Summ >>= 10;
+		//*(pVar_+i) = int(sqrt(_Summ));	// среднеквадратичное
+		*(pVar_+i) = _Summ >> 10;		// среднеарифметическое
 		i++;
 		if (i == nSensor_) i = 0;
 		ADMUX = _BV(REFS0) | *(pPin_+i);
@@ -111,7 +111,7 @@ void ADCmulti::GetADC_int() //__attribute__((always_inline))
 	if (_cntr < 1024)
 	{
 		adcData = ((An << 8) + An_pin);
-		adcData *= adcData;				// для среднеквадратичного
+		//adcData *= adcData;				// для среднеквадратичного
 		_Summ += adcData;                   
 		_cntr++;
 	}
