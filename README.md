@@ -1,6 +1,9 @@
 # ADCmulti
 
-# readonly now use https://github.com/Tomat7/ADCmulti or https://github.com/Tomat7/ADCmultiplexer
+# readonly now use
+https://github.com/Tomat7/ADCmulti 
+or 
+https://github.com/Tomat7/ADCmultiplexer
 
 Continuously reading ADC value from SEVERAL pins using **Free-Running mode** and interrupt. (ie working in background)  
 The library switch between analog pins in free-running mode and returns **average** value of last measurement cycle.  
